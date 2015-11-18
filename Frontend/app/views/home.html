@@ -1,0 +1,158 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading pos-rel">
+
+        <div class="post_textarea">
+
+
+            <form method="post" name="postForm" role="form" enctype="multipart/form-data" class="facebook-share-box" novalidate>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-file"></i> Update Status
+                    </div>
+                    <div class="panel-body">
+                        <div class="">
+                            <textarea name="message_about" cols="40" rows="10" ng-model="message_about" id="status_message" class="form-control message" style="height: 62px; overflow: hidden;" placeholder="What's on your mind ?" required></textarea>
+                            <span class="text-error" ng-show="postForm.message_about.$error.required"></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input type="submit" name="submit" value="Post" ng-click="save();"  ng-disabled="postForm.$invalid || postForm.$pristine" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+                </div>
+             
+            </form>
+
+<div ng-show="loading" class="loading"><img src="images/ajax-loader.gif">Data Posting...</div>
+        </div>
+    </div>
+
+
+</div>
+<div class="panel-body">
+
+
+    <div id="comments" class="comments-area">
+
+
+        <h2 class="comments-title">{{totalpost}} post for you...</h2>
+
+
+        <ol class="commentlist" ng-repeat="eachblog in blogpost">
+          
+            <li class="comment even thread-even depth-1" id="li-comment">
+                <article id="comment" class="comment">
+                    <footer class="comment-meta">
+                        <div class="comment-author vcard">
+                            <div class="avatar-wrap">
+                                <img alt='' src='{{eachblog.dummyimage}}' class='avatar avatar-68 photo' height='68' width='68' />
+                            </div>
+                        </div><!-- .comment-author .vcard -->
+                    </footer>
+
+                    <div class="comment-content">
+                        <div class="author-name">
+                       <span class="fn">{{eachblog.dummyname}}</span>
+                        </div>
+                        <div class="specify_message_type" ng-show="eachblog.message_type=='Plain_Text'">
+                            <p>{{eachblog.message_about}}</p>
+
+                        </div>
+
+
+
+                        <div class="specify_message_type" ng-show="eachblog.message_type=='Plain_URL'">
+                            <a href="{{eachblog.message_about}}">{{eachblog.message_about}}</a>
+
+                        </div>   
+
+
+
+
+                        <div class="specify_message_type" ng-show="eachblog.message_type=='Youtube_URL'">
+                          
+                             <div ng-html="eachblog.message_about"></div>
+
+                        </div>                      
+                        
+                        <a class="comment-date" href=""><time>{{eachblog.create_date}}</time></a>
+                    </div>
+
+ <div class="clearfix"></div>
+  <div class="clearfix"></div>
+
+                    <div class="comment_section" ng-repeat="eachcomment in blogcomment|filter:{post_id:eachblog.id}">
+                        <footer class="comment-meta">
+                            <div class="comment-author vcard">
+                                <div class="avatar-wrap">
+                                    <img alt='' src='{{eachcomment.dummyimage}}' class='avatar avatar-68 photo' height='68' width='68' />
+                                </div>
+                            </div><!-- .comment-author .vcard -->
+                        </footer>
+
+                        <div class="comment-content">
+                            <div class="author-name">
+                            <span class="fn">{{eachcomment.dummyname}}</span>
+                            </div>
+
+
+                            <div class="specify_comment_type" ng-show="eachcomment.comment_type=='Plain_Text'">
+                            <p>{{eachcomment.comment_about}}</p>
+
+                        </div>
+
+
+
+                        <div class="specify_comment_type" ng-show="eachcomment.message_type=='Plain_URL'">
+                            <a href="{{eachcomment.comment_about}}">{{eachcomment.comment_about}}</a>
+
+                        </div>   
+
+
+
+
+                        <div class="specify_comment_type" ng-show="eachcomment.comment_type=='Youtube_URL'">
+                          
+                            <div ng-html="eachcomment.comment_about"></div>
+
+                        </div>     
+                            <a class="comment-date" href=""><time>{{eachcomment.create_date}}</time></a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+
+<div class="comment_textarea">
+                    <textarea class="comment-content" name="comment_about" ng-model="comment_about" ng-enter="commentsaveintodb(comment_about,{{eachblog.id}})" clear-input  placeholder="Press enter to........"></textarea>
+
+                    <div ng-show="loading_comment" class="loading"><img src="images/ajax-loader.gif">Data Saving...</div>
+</div>
+                </article><!-- #comment-## -->
+
+            </li><!-- #comment-## -->
+
+
+        </ol>
+    </div>
+
+
+
+
+    
+</div>
+<div class="panel-footer clearfix">
+
+</div>
+
